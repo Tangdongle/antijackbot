@@ -14,6 +14,13 @@ defmodule Antijackbot.System do
               channels: ["#nojacksallowed"]
   end
 
+  def start(_) do
+    {:ok, client} = Antijackbot.System.start_link(nil)
+    Antijackbot.System.join(client, "#classynerdbois")
+    client
+  end
+
+
   def start_link(_) do
     GenServer.start_link(__MODULE__, %Antijackbot.System.State{}, name: __MODULE__)
   end
