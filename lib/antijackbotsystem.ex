@@ -10,8 +10,7 @@ defmodule Antijackbot.System do
               name: "Anti Jack Bot",
               client: nil,
               handlers: [],
-              #channels: ["#classynerdbois"]
-              channels: ["#nojacksallowed"]
+              channels: ["#classynerdbois"]
   end
 
   def start(_) do
@@ -46,9 +45,19 @@ defmodule Antijackbot.System do
     GenServer.cast(client, {:send, msg})
   end
 
+  def send(client, channel, msg) do
+    GenServer.cast(client, {:send, msg, channel})
+  end
+
   @impl GenServer
   def handle_cast({:send, msg}, state) do
-    ExIRC.Client.msg state.client, :privmsg, "#nojacksallowed", msg
+    ExIRC.Client.msg state.client, :privmsg, List.first(state.channels), msg
+    {:noreply, state}
+  end
+
+  @impl GenServer
+  def handle_cast({:send, msg, channel}, state) do
+    ExIRC.Client.msg state.client, :privmsg, channel, msg
     {:noreply, state}
   end
 
