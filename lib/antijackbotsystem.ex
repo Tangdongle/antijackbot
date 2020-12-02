@@ -13,7 +13,7 @@ defmodule Antijackbot.System do
               channels: ["#classynerdbois"]
   end
 
-  def start(_) do
+  def main(_) do
     {:ok, client} = Antijackbot.System.start_link(nil)
     Antijackbot.System.join(client, "#classynerdbois")
     client

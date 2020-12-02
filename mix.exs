@@ -7,6 +7,7 @@ defmodule Antijackbot.MixProject do
       version: "0.1.0",
       elixir: "~> 1.11-rc",
       start_permanent: Mix.env() == :prod,
+      escript: [main_module: Antijackbot.System],  # You have to add this extraline
       deps: deps()
     ]
   end
